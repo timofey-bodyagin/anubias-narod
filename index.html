@@ -24,6 +24,9 @@
             }
 			
             $(document).ready(function() {
+				lightbox.option({'albumLabel': 'Фото %1 из %2',
+				});
+
 				$(".pnl-left>div").live("click", function(){
 					var id = $(this).attr("id");
 					if(id){
@@ -32,17 +35,17 @@
 				});
 				$(window).hashchange(onHashChange);
 				onHashChange();
-				$(".shop_item img").live("click", function(){
+/*				$(".shop_item img").live("click", function(){
 					showImage($(this).attr("src"), $(this).parent().find("div").html());
 				});
-				
+
 				$("body").keyup(function( event ) {
 					if ( event.which == 27) {
 						if($("#win")){
 							$("#win").window("close");
 						}
 					}
-				});      
+				});*/
 				//$('#tt').tabs({onSelect:TabSelect});
 				$('a.tabs-inner').live("click",TabSelect);
 				$($('a.tabs-inner')[2]).click();
@@ -144,7 +147,7 @@
 										<div id="bucefa_oneyear">
 											Фотодневник "Хроника одного года"
 										</div>
-										<div id="bucefa_bu1"class="l2">
+										<div id="bucefa_bu1" class="l2">
 											Bucephalandra sp. "Stripes" Tapah
 										</div>
 										<div id="bucefa_bu2" class="l2">
