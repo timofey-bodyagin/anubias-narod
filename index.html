@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Буцефаландры для души</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="./RESOURCES/CSS/JQE/easyui.css">
+        <link rel="stylesheet" type="text/css" href="./RESOURCES/CSS/lightbox.min.css">
+        <link rel="stylesheet" type="text/css" href="./RESOURCES/CSS/icon.css">
+        <link rel="stylesheet" type="text/css" href="./RESOURCES/CSS/style.css">
+        <script type="text/javascript" src="./RESOURCES/JS/JQ/jquery.min.js"></script>
+        <script type="text/javascript" src="./RESOURCES/JS/JQ/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="./RESOURCES/JS/JQ/jquery.ba-hashchange.min.js"></script>
+	<script type="text/javascript" src="./RESOURCES/JS/lightbox.min.js"></script>
+        <script>
+            function loadContent(id, path) {
+                if ($("#" + id)) {
+                    $("#" + id).load('./' + path, {}, function() {
+                        $.parser.parse("#" + id);
+                    });
+                }
+                else {
+                    alert("no header");
+                }
+            }
+			
+            $(document).ready(function() {
+				$(".pnl-left>div").live("click", function(){
+					var id = $(this).attr("id");
+					if(id){
+						window.location.hash = id;
+					}
+				});
+				$(window).hashchange(onHashChange);
+				onHashChange();
+				$(".shop_item img").live("click", function(){
+					showImage($(this).attr("src"), $(this).parent().find("div").html());
+				});
+				
+				$("body").keyup(function( event ) {
+					if ( event.which == 27) {
+						if($("#win")){
+							$("#win").window("close");
+						}
+					}
+				});      
+				//$('#tt').tabs({onSelect:TabSelect});
+				$('a.tabs-inner').live("click",TabSelect);
+				$($('a.tabs-inner')[2]).click();
+				
+            });
+			
+			function onHashChange(){
+				var id = window.location.hash;
+				id = id.replace("#", "");
+				if(id){
+					$(".pnl-left>div").removeClass("selected");
+					$("#"+id).addClass("selected");
+					var a = id.split("_");
+					var path = "";
+					if(a.length>1){
+						path = "RESOURCES/FILES/"+a[0]+"/"+a[1]+"/index.html";
+						var title = $("#"+a[0]).attr("name");
+						$('#tt').tabs("select", title);
+						loadContent(a[0]+"_content", path);
+					}
+					
+				}
+			}
+			
+			function showImage(smallSrc, txt){
+				var src = smallSrc.replace("_m","");
+//				var a = txt.split("<br>");
+//				txt = a[a.length-1];
+				txt = txt.replace("<br>","&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+
+				$('<div id="win"></div>').appendTo($("body"));
+				
+				var img = $("<img />").attr('src', src)
+					.load(function() {
+						$("#win").append(img);
+						$('#win').window({
+							modal:true,
+							title: txt,
+							collapsible: false,
+							minimizable: false,
+							maximizable: false,
+							resizable: false,
+							onClose:function(){$('#win').window('destroy');}
+						});
+					});
+			}
+			
+			function TabSelect(ev){
+				var title = $($(this).find(".tabs-title")[0]).text();
+				var tab = $("#tt").tabs("getTab", title);
+				var id = $(tab).attr("ID");
+				var parentId = id;
+				if(window.location.hash.indexOf("#"+id)<0){
+					id = $($("#"+id+" .pnl-left>div")[0]).attr("ID");
+					if(!id){
+						id = parentId;
+					}
+					window.location.hash = "#"+id;
+				}
+ 			}
+
+        </script>
+    </head>
+    <body class="easyui-layout">
+        <div id='header' data-options="region:'north',border:false" style="height: 80px; padding-top:10px; background-color: FFF">
+            <table width="100%">
+                <tr>
+                    <td width="50px">
+                        &nbsp;
+                    </td>
+                    <td width="1px">
+                        <img src="RESOURCES/IMG/a-logo.png" /> 
+                    </td>
+                    <td style="text-align:justify">
+                        <h1 class="calendar-title">
+                            <span>Б&nbsp;У&nbsp;Ц&nbsp;Е&nbsp;Ф&nbsp;А&nbsp;Л&nbsp;А&nbsp;Н&nbsp;Д&nbsp;Р&nbsp;Ы&nbsp;&nbsp;&nbsp;Д&nbsp;Л&nbsp;Я&nbsp;&nbsp;&nbsp;Д&nbsp;У&nbsp;Ш&nbsp;И</span>
+                        </h1>
+                    </td>
+                    <td width="1px">
+                        <img src="RESOURCES/IMG/b-logo.png" /> 
+                    </td>
+                    <td width="50px">
+                        &nbsp;
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="centerDiv" data-options="region:'center'" >
+            <div id="tt" class="easyui-tabs" fit="true" data-options="{tabWidth:200, tabPosition:'top', tabHeight:40}">
+                <div  id="bucefa" title="Буцефаландры" name="Буцефаландры">
+                    <div class="easyui-panel gray_font" data-options ="{fit: true}">
+						<div class="easyui-layout" data-options="fit:true">
+							<div data-options="region:'west'" style="width:200px; padding-right:5px;"> 
+								<div class="easyui-panel pnl" data-options="fit:true">
+									<div class="easyui-panel pnl-left" data-options="fit:true">
+										<div id="bucefa_my">
+											Мои буцефаландры
+										</div>
+										<div id="bucefa_oneyear">
+											Фотодневник "Хроника одного года"
+										</div>
+										<div id="bucefa_bu1"class="l2">
+											Bucephalandra sp. "Stripes" Tapah
+										</div>
+										<div id="bucefa_bu2" class="l2">
+											Bucephalandra sp. Simunjam 
+										</div>
+										<div id="bucefa_bu3" class="l2">
+											Bucephalandra sp. "Red Vein" South Malinau, East Kalimantan (RVM) 
+										</div>
+										<div id="bucefa_bu5" class="l2">
+											Bucephalandra sp
+										</div>
+										<div id="bucefa_bu6" class="l2">
+											Bucephalandra sp. Sintang, West Kalimantan
+										</div>
+										<div id="bucefa_bu8" class="l2">
+											Bucephalandra sp. Green Saw, West Kalimantan (GS)
+										</div>
+										<div id="bucefa_bu9" class="l2">
+											Bucephalandra sp. Serian
+										</div>
+										<div id="bucefa_bu10" class="l2">
+											Bucephalandra sp. Tebakang
+										</div>
+										<div id="bucefa_bu11" class="l2">
+											Bucephalandra sp. "Narrow Leaf", Tebakang
+										</div>
+										<div id="bucefa_bu12" class="l2">
+											Bucephalandra sp. Sebauh
+										</div>
+										<div id="bucefa_bu13" class="l2">
+											Bucephalandra sp. "Red Stem", Serian
+										</div>
+										<div id="bucefa_bu14" class="l2">
+											Bucephalandra sp. Padawan
+										</div>
+										<div id="bucefa_new">
+											Новые растения, новые болезни
+										</div>
+									</div>
+								</div>
+							</div>
+							<div data-options="region:'center'" style="padding-left:5px;">
+								<div class="easyui-panel pnl" data-options="fit:true">
+									<div id="bucefa_content" class="easyui-panel pnl" data-options="fit:true">
+									</div>
+								</div>
+							</div>
+						</div>
+                    </div>
+                </div>
+                <div  id="pub" title="Публикации в журналах" name="Публикации в журналах">
+                    <div class="easyui-panel gray_font" data-options ="{fit: true}">
+                        Страница находится в разработке
+                    </div>
+                </div>
+                <div  id="shop_bucefa" title="Магазин" name="Магазин">
+                    <div class="easyui-panel gray_font" data-options ="{fit: true}">
+						<div class="easyui-layout" data-options="fit:true">
+<!--							<div data-options="region:'north'" style="height:auto; padding-bottom:10px; padding-left:5px;"> 
+								<div class="easyui-panel pnl" data-options="fit:true" style="text-align:center;">
+									<div class="easyui-panel pnl-left" data-options="fit:true" style="padding:5px; overflow:hidden;">
+										<div id="shop_bucefa" class="inline">
+											Буцефаландры
+										</div>
+										<div id="shop_contact" class="inline">
+											Доставка и оплата
+										</div>
+									</div>
+								</div>
+							</div>-->
+							<div data-options="region:'center'" style="padding-left:5px;">
+								<div class="easyui-panel pnl" data-options="fit:true">
+									<div id="shop_content" class="easyui-panel pnl" data-options="fit:true">
+									</div>
+								</div>
+							</div>
+						</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
