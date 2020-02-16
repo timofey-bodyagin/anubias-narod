@@ -14,7 +14,7 @@
         <script>
             function loadContent(id, path) {
                 if ($("#" + id)) {
-                    $("#" + id).load('./' + path, {}, function() {
+                    $("#" + id).load('./' + path, '', function() {
                         $.parser.parse("#" + id);
                     });
                 }
